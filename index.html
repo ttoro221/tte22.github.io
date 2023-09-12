@@ -1,9 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>이미지 페이지</title>
+    <title>추천수와 비추천수에 따른 이미지 변경</title>
 </head>
 <body>
-    <img src="\image\0.png" alt="이미지 설명">
+    <span class="font_blue smallnum" id="recommend_count">0</span>
+    <p class="down_num" id="dislike_count">0</p>
+    <img id="result_image" src="" alt="결과 이미지">
+    
+    <script>
+        function updateImage() {
+            // 추천수와 비추천수 가져오기
+            const recommendCount = parseInt(document.getElementById("recommend_count").textContent);
+            const dislikeCount = parseInt(document.getElementById("dislike_count").textContent);
+
+            // 추천수와 비추천수에 따라 이미지 경로 설정
+            let imagePath = "";
+            const difference = recommendCount - dislikeCount;
+            if (difference === 1) {
+                imagePath = "/image/1.jpg";
+            } else if (difference === 0) {
+                imagePath = "/image/0.jpg";
+            } else if (difference === -1) {
+                imagePath = "/image/-1.jpg";
+            }
+
+            // 이미지 업데이트
+            const resultImage = document.getElementById("result_image");
+            resultImage.src = imagePath;
+        }
+
+        // 일정 시간마다 함수 호출
+        setInterval(updateImage, 5000); // 5초마다 호출
+    </script>
 </body>
 </html>
